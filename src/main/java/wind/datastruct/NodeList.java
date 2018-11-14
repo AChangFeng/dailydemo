@@ -17,7 +17,9 @@ public class NodeList<T extends Comparable> {
         this.size = 0;
     }
 
-    // using Bubble Sort
+    /**
+     * using Bubble Sort
+     */
     public void sort() {
         Node<T> currNode = null, nextNode = null;
         for (currNode = head; currNode.next != null; currNode = currNode.next) {

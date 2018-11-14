@@ -21,6 +21,15 @@ public class FileSystemClassLoader extends ClassLoader {
         this.rootDir = rootDir;
     }
 
+    /**
+     * 为了不破坏类加载的代理  一般重写findClass方法
+     * 调用的时候使用loadClass方法，该方法会首先在已经加载的缓存中查找要加载的类是否已经加载过，
+     * 若没有加载先让父类加载，父类未加载则调用自己的findClass方法来查找该类
+     *
+     * @param name
+     * @return
+     * @throws ClassNotFoundException
+     */
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] classData = this.getClassData(name);
