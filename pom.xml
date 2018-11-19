@@ -81,7 +81,11 @@
             <artifactId>javassist</artifactId>
             <version>3.23.1-GA</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-core</artifactId>
+            <version>3.5.4</version>
+        </dependency>
     </dependencies>
 
     <build>

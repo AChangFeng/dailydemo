@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
  * @create: 2018-07-27 10:10
  **/
 public class SortDemo {
+
     public static void main(String[] args) {
         int arrayLength = 10;
         Random random = new Random();
@@ -17,7 +18,8 @@ public class SortDemo {
             array[x] = random.nextInt(arrayLength * arrayLength);
         });
         //insertionSort(array);
-        shellSort(array);
+        //shellSort(array);
+        bubbleSort(array);
         printArray(array);
     }
 
@@ -73,6 +75,30 @@ public class SortDemo {
             }
             // 将temp插入正确的位置
             array[j] = temp;
+        }
+    }
+
+    /**
+     * 冒泡排序
+     *
+     * @param array
+     */
+    public static void bubbleSort(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            boolean flag = false;
+            // 一次冒泡的最大次数为：当前需排序元素-1，因为每次冒泡比较2个元素
+            // 当前需排序元素就是j-i
+            for (int j = 0; j < array.length - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    int tmp = array[j];
+                    array[j + 1] = array[j];
+                    array[j] = tmp;
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                break;
+            }
         }
     }
 
