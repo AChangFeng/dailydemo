@@ -19,7 +19,8 @@ public class SortDemo {
         });
         //insertionSort(array);
         //shellSort(array);
-        bubbleSortV0(array);
+        printArray(array);
+        selectionSort(array);
         printArray(array);
     }
 
@@ -79,7 +80,32 @@ public class SortDemo {
     }
 
     /**
+     * 冒泡排序
+     *
+     * @param a
+     */
+    private static void bubbleSortV0(int[] a) {
+        if (a.length <= 1) {
+            return;
+        }
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length - i - 1; j++) {
+                if (a[j] > a[j + 1]) {
+                    int tmp = a[j + 1];
+                    a[j + 1] = a[j];
+                    a[j] = tmp;
+                }
+            }
+        }
+    }
+
+    /**
      * 插入排序
+     * <p>
+     * 首先，我们将数组中的数据分为两个区间，已排序区间和未排序区间。
+     * 初始已排序区间只有一个元素，就是数组的第一个元素。
+     * 插入算法的核心思想是取未排序区间中的元素，在已排序区间中找到合适的插入位置将其插入，并保证已排序区间数据一直有序。
+     * 重复这个过程，直到未排序区间中元素为空，算法结束
      *
      * @param a
      */
@@ -108,6 +134,14 @@ public class SortDemo {
 
     /**
      * 冒泡排序
+     * <p>
+     * 冒泡排序只会操作相邻的两个数据。
+     * 每次冒泡操作都会对相邻的两个元素进行比较，看是否满足大小关系要求。
+     * 如果不满足就让它俩互换。
+     * 一次冒泡会让至少一个元素移动到它应该在的位置，重复n 次，就完成了 n 个数据的排序工作。
+     * <p>
+     * 实际上，冒泡过程还可以优化。当某次冒泡操作已经没有数据交换时，说明已经达到完全有
+     * 序，不用再继续执行后续的冒泡操作。
      *
      * @param array
      */
@@ -132,22 +166,27 @@ public class SortDemo {
     }
 
     /**
-     * 冒泡排序
+     * 选择排序
+     * <p>
+     * 选择排序的思路类似插入排序，整个数组分为已排序区间和未排序区间。
+     * 每次排序从未排序区间找出最小的元素放在已排序区间末尾。
      *
      * @param a
      */
-    private static void bubbleSortV0(int[] a) {
-        if (a.length <= 1) {
-            return;
-        }
+    private static void selectionSort(int[] a) {
+        // 对于长度为n的数组 需要n次才能排序完成
         for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a.length - i - 1; j++) {
-                if (a[j] > a[j + 1]) {
-                    int tmp = a[j + 1];
-                    a[j + 1] = a[j];
-                    a[j] = tmp;
+            // 找出最小值 i左边为已排序区域 右边为未排序区域
+            int minIndex = i;
+            for (int j = i; j < a.length; j++) {
+                if (a[j] < a[minIndex]) {
+                    minIndex = j;
                 }
             }
+            // 最小值放到已排序末尾 即与未排序的首位交换元素
+            int min = a[minIndex];
+            a[minIndex] = a[i];
+            a[i] = min;
         }
     }
 
