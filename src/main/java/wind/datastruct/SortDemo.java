@@ -15,13 +15,17 @@ public class SortDemo {
         Random random = new Random();
         int[] array = new int[arrayLength];
         IntStream.range(0, arrayLength).forEach(x -> {
-            array[x] = random.nextInt(arrayLength * arrayLength);
+            int i = arrayLength * arrayLength;
+            if (i <= 0) {
+                i = Integer.MAX_VALUE;
+            }
+            array[x] = random.nextInt(i);
         });
         //insertionSort(array);
         //shellSort(array);
         printArray(array);
-        selectionSort(array);
-        printArray(array);
+        int[] result = mergeSort(array);
+        printArray(result);
     }
 
     public static int[] mergeSort(int[] a1, int[] a2) {
@@ -129,6 +133,7 @@ public class SortDemo {
             }
             // 插入 该元素
             a[j + 1] = value;
+            printArray(a);
         }
     }
 
@@ -188,6 +193,46 @@ public class SortDemo {
             a[minIndex] = a[i];
             a[i] = min;
         }
+    }
+
+    private static int[] mergeSort(int[] a) {
+        if (a.length <= 1) {
+            return a;
+        }
+        int mid = a.length / 2;
+
+        int[] a1 = new int[mid];
+        int[] a2 = new int[a.length - mid];
+
+        System.arraycopy(a, 0, a1, 0, mid);
+        System.arraycopy(a, mid, a2, 0, a.length - mid);
+
+        int[] left = mergeSort(a1);
+        int[] right = mergeSort(a2);
+        return merge(left, right);
+    }
+
+    private static int[] merge(int[] a1, int[] a2) {
+        int[] result = new int[a1.length + a2.length];
+        int x, y, z;
+        x = y = z = 0;
+        while (y < a1.length && z < a2.length) {
+            if (a1[y] < a2[z]) {
+                result[x++] = a1[y++];
+            } else {
+                result[x++] = a2[z++];
+            }
+        }
+        if (y == a1.length) {
+            for (; z < a2.length; ) {
+                result[x++] = a2[z++];
+            }
+        } else {
+            for (; y < a1.length; ) {
+                result[x++] = a1[y++];
+            }
+        }
+        return result;
     }
 
     public static void printArray(int[] array) {
