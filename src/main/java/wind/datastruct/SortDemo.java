@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 public class SortDemo {
 
     public static void main(String[] args) {
-        int arrayLength = 10;
+        int arrayLength = 100000;
         Random random = new Random();
         int[] array = new int[arrayLength];
         IntStream.range(0, arrayLength).forEach(x -> {
@@ -24,8 +24,9 @@ public class SortDemo {
         //insertionSort(array);
         //shellSort(array);
         printArray(array);
-        int[] result = mergeSort(array);
-        printArray(result);
+        //int[] result = mergeSort(array);
+        quickSort(array, 0, arrayLength - 1);
+        printArray(array);
     }
 
     public static int[] mergeSort(int[] a1, int[] a2) {
@@ -233,6 +234,45 @@ public class SortDemo {
             }
         }
         return result;
+    }
+
+    private static void quickSort(int[] a, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+        // 分区
+        int partition = partition(a, start, end);
+        // 递归排序左边
+        quickSort(a, start, partition - 1);
+        // 递归排序右边
+        quickSort(a, partition + 1, end);
+    }
+
+    /**
+     * 将数组区间排序为p下标左边元素都比a[p]小右边都比它大的区间，并返回p
+     *
+     * @param a
+     * @param start
+     * @param end
+     * @return
+     */
+    private static int partition(int[] a, int start, int end) {
+        int pivot = a[end];
+        // 假设0-i是有序区间 pivot是哨兵 小于哨兵的要放到i之前
+        int i = start, j = start;
+        for (; j < end; j++) {
+            if (a[j] < pivot) {
+                int tmp = a[j];
+                a[j] = a[i];
+                a[i] = tmp;
+                i++;
+            }
+        }
+        // swap pivot and target index
+        int tmp = a[i];
+        a[i] = a[end];
+        a[end] = tmp;
+        return i;
     }
 
     public static void printArray(int[] array) {
