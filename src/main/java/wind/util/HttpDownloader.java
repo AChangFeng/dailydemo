@@ -28,8 +28,8 @@ public class HttpDownloader {
     private final int MIN_SIZE = 2 << 20;
 
     public static void main(String[] args) throws IOException {
-        String url = "https://download-keycdn.ej-technologies.com/jprofiler/c";
-        new HttpDownloader(url, "D:/jprofiler_windows-x64_10_1_2.exe\n", 10, 5000).get();
+        String url = "https://codeload.github.com/smartloli/kafka-eagle-bin/tar.gz/v1.2.8";
+        new HttpDownloader(url, "D:/kafka-eagle-bin-1.2.8.tar.gz", 10, 5000).get();
     }
 
     public HttpDownloader(String Url, String localPath) throws MalformedURLException {
